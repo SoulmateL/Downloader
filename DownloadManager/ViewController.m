@@ -22,6 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //
 //    [[DownloadManager shareManager] removeAllDownloadTask];
 //    [DownloadManager shareManager].maxConcurrentDownloads = 2;
 //    [DownloadManager shareManager].allowsCellularAccess = YES;
