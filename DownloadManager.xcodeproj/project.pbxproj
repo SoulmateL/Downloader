@@ -18,6 +18,7 @@
 		186E003729AF05F800CFD2EC /* DownloadManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E003629AF05F800CFD2EC /* DownloadManagerUITests.m */; };
 		186E003929AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E003829AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m */; };
 		186E004829AF061300CFD2EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E004729AF061300CFD2EC /* DownloadModel.m */; };
+		1874B7272A09D40100638317 /* DownloadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7262A09D40100638317 /* DownloadTableViewCell.m */; };
 		18923EB629B97425005A5027 /* DownloadSessionDataTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 18923EB529B97425005A5027 /* DownloadSessionDataTask.m */; };
 		18AF4C9329B17E1800581BBC /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4C9229B17E1800581BBC /* DownloadOperation.m */; };
 		18AF4CBA29B17F6F00581BBC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 18AF4C9529B17F6F00581BBC /* LICENSE */; };
@@ -81,6 +82,8 @@
 		186E003829AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManagerUITestsLaunchTests.m; sourceTree = "<group>"; };
 		186E004629AF061300CFD2EC /* DownloadModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
 		186E004729AF061300CFD2EC /* DownloadModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
+		1874B7252A09D40100638317 /* DownloadTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewCell.h; sourceTree = "<group>"; };
+		1874B7262A09D40100638317 /* DownloadTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewCell.m; sourceTree = "<group>"; };
 		18923EB429B97425005A5027 /* DownloadSessionDataTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadSessionDataTask.h; sourceTree = "<group>"; };
 		18923EB529B97425005A5027 /* DownloadSessionDataTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadSessionDataTask.m; sourceTree = "<group>"; };
 		18AF4C9129B17E1800581BBC /* DownloadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				186E001429AF05F600CFD2EC /* SceneDelegate.m */,
 				186E001629AF05F600CFD2EC /* ViewController.h */,
 				186E001729AF05F600CFD2EC /* ViewController.m */,
+				1874B7252A09D40100638317 /* DownloadTableViewCell.h */,
+				1874B7262A09D40100638317 /* DownloadTableViewCell.m */,
 				18AF4CD729B1E86900581BBC /* test.h */,
 				18AF4CD829B1E86900581BBC /* test.m */,
 				186E001929AF05F600CFD2EC /* Main.storyboard */,
@@ -435,6 +440,7 @@
 				18AF4C9329B17E1800581BBC /* DownloadOperation.m in Sources */,
 				18AF4CC629B17F6F00581BBC /* AFHTTPSessionManager.m in Sources */,
 				186E001829AF05F600CFD2EC /* ViewController.m in Sources */,
+				1874B7272A09D40100638317 /* DownloadTableViewCell.m in Sources */,
 				186E001229AF05F600CFD2EC /* AppDelegate.m in Sources */,
 				18AF4CBE29B17F6F00581BBC /* AFNetworkActivityIndicatorManager.m in Sources */,
 				18AF4CC829B17F6F00581BBC /* AFURLRequestSerialization.m in Sources */,

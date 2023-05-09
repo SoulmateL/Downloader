@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 当前下载队列的任务数量
 @property (nonatomic, assign, readonly) NSUInteger downloadingCount;
-/// 是否允许蜂窝网络下载 默认NO
+/// 是否允许蜂窝网络下载 默认YES
 @property (nonatomic, assign) BOOL allowsCellularAccess;
 /// 最大任务数
 @property (nonatomic, assign) NSInteger maxConcurrentDownloads;

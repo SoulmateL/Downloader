@@ -11,22 +11,22 @@
 
 @interface DownloadOperation ()
 @property (nonatomic, strong) DownloadModel *downloadItem;
-@property (nonatomic, assign) BOOL isExecuting;
-@property (nonatomic, assign) BOOL isFinished;
+@property (nonatomic, assign, getter = isExecuting) BOOL executing;
+@property (nonatomic, assign, getter = isFinished) BOOL finished;
 @property (nonatomic, strong) DownloadSessionDataTask *task;
 @end
 
 @implementation DownloadOperation
 
-@synthesize isExecuting = _isExecuting;
-@synthesize isFinished = _isFinished;
+@synthesize executing = _executing;
+@synthesize finished = _finished;
 
 - (instancetype)initWithDownloadItem:(DownloadModel *)item {
     if (self = [super init]) {
         self.queuePriority = item.queuePriority;
-        self.downloadItem = item;
-        self.isExecuting = NO;
-        self.isFinished = NO;
+        _downloadItem = item;
+        _executing = NO;
+        _finished = NO;
     }
     return self;
 }
@@ -34,10 +34,10 @@
 - (void)start {
     @synchronized (self) {
         if (self.isCancelled) {
-            self.downloadItem.downloadStatus = DownloadStateWaiting;
+            [self completeOperation];
             return;
         }
-        self.isExecuting = YES;
+        self.executing = YES;
         self.downloadItem.downloadStatus = DownloadStateDownloading;
         self.task = [[DownloadSessionManager sharedManager] downloadTaskWithDownloadItem:self.downloadItem];
         __weak __typeof(self) weakSelf = self;
@@ -55,22 +55,36 @@
 
 - (void)cancel {
     @synchronized (self) {
+        if (self.isCancelled) return;
         if (self.isFinished) return;
         [super cancel];
-        [self done];
+   
+        if (self.isExecuting || self.isFinished) {
+            if (self.isExecuting) self.executing = NO;
+            if (!self.isFinished) self.finished = YES;
+        }
+        [self reset];
     }
 }
 
 - (void)done {
-    if (self.task) {
-        [[DownloadSessionManager sharedManager] cancelTask:self.task];
-    }
-    self.isFinished = YES;
-    self.isExecuting = NO;
-    self.task = nil;
+    [self completeOperation];
     if (self.doneBlock) {
         self.doneBlock();
     }
+}
+
+- (void)completeOperation {
+    self.executing = NO;
+    self.finished = YES;
+    [self reset];
+}
+
+- (void)reset {
+    if (self.task) {
+        [[DownloadSessionManager sharedManager] cancelTask:self.task];
+    }
+    self.task = nil;
 }
 
 #pragma mark getter && setter
@@ -79,28 +93,15 @@
     return YES;
 }
 
-- (BOOL)isExecuting {
-    return _isExecuting;
+- (void)setExecuting:(BOOL)executing {
+    [self willChangeValueForKey:@"isExecuting"];
+    _executing = executing;
+    [self didChangeValueForKey:@"isExecuting"];
 }
 
-- (BOOL)isFinished {
-    return _isFinished;
+- (void)setFinished:(BOOL)finished {
+    [self willChangeValueForKey:@"isFinished"];
+    _finished = finished;
+    [self didChangeValueForKey:@"isFinished"];
 }
-
-- (void)setIsExecuting:(BOOL)isExecuting {
-    if (_isExecuting != isExecuting) {
-        [self willChangeValueForKey:@"isExecuting"];
-        _isExecuting = isExecuting;
-        [self didChangeValueForKey:@"isExecuting"];
-    }
-}
-
-- (void)setIsFinished:(BOOL)isFinished {
-    if (_isFinished != isFinished) {
-        [self willChangeValueForKey:@"isFinished"];
-        _isFinished = isFinished;
-        [self didChangeValueForKey:@"isFinished"];
-    }
-}
-
 @end

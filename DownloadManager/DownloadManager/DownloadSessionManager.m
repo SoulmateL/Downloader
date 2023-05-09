@@ -65,7 +65,12 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     DownloadSessionDataTask *task = [[DownloadSessionDataTask alloc] initWithDownloadItem:item];
     NSURL *URL = [NSURL URLWithString:item.fileURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    NSString *range = [NSString stringWithFormat:@"bytes=%lld-",item.downloadedSize];
+    request.timeoutInterval = 30;
+    int64_t downloadedSize = 0;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:item.savePath]) {
+        downloadedSize = [[NSFileManager defaultManager] attributesOfItemAtPath:item.savePath error:nil].fileSize;
+    }
+    NSString *range = [NSString stringWithFormat:@"bytes=%lld-",downloadedSize];
     [request setAllHTTPHeaderFields:item.httpHeaders];
     [request setValue:range forHTTPHeaderField:@"Range"];
     task.dataTask = [self.sessionManager dataTaskWithRequest:request];

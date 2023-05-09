@@ -51,7 +51,7 @@ static NSString *const kTaskQueueName = @"com.jonathan.download.queue";
         _taskQueue = [[NSOperationQueue alloc] init];
         _taskQueue.name = kTaskQueueName;
         _taskQueue.maxConcurrentOperationCount = _maxConcurrentDownloads;
-        _allowsCellularAccess = NO;
+        _allowsCellularAccess = YES;
         _taskOperationMap = [NSMutableDictionary dictionary];
         self.lock = [[NSLock alloc] init];
         [self addReachabilityMonitor];
@@ -82,14 +82,12 @@ static NSString *const kTaskQueueName = @"com.jonathan.download.queue";
         }
         /// WWAN
         else if (status == AFNetworkReachabilityStatusReachableViaWWAN) {
-            if (strongSelf.allowsCellularAccess) {
-                [strongSelf resumeAllDownloadTask];
-            }
-            else {
+            if (!strongSelf.allowsCellularAccess) {
                 [strongSelf pauseAllDownloadTask];
             }
         }
         else {
+            [strongSelf pauseAllDownloadTask];
             NSLog(@"无网络连接");
         }
     }];
@@ -209,6 +207,10 @@ void unlock(dispatch_semaphore_t semaphore) {
     NSAssert(taskId, @"taskId不能为空");
     if (self.reachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN && !self.allowsCellularAccess) {
         return;
+    }
+    DownloadModel *item = [self existsAtDownloadingListWithTaskId:taskId];
+    if (item.downloadStatus != DownloadStateNotStarted) {
+        item.downloadStatus = DownloadStateWaiting;
     }
     [self addOperationWithTaskId:taskId];
 }
