@@ -33,6 +33,7 @@ NSString *const kDownloadProgressUpdateNotification = @"kDownloadProgressUpdateN
     [coder encodeObject:self.fileURL forKey:@"fileURL"];
     [coder encodeObject:self.httpHeaders forKey:@"httpHeaders"];
     [coder encodeObject:self.savePath forKey:@"savePath"];
+    [coder encodeObject:self.resumeDataPath forKey:@"resumeDataPath"];
     [coder encodeInt64:self.totalSize forKey:@"totalSize"];
     [coder encodeInt64:self.downloadedSize forKey:@"downloadedSize"];
     [coder encodeFloat:self.downloadProgress forKey:@"downloadProgress"];
@@ -49,6 +50,7 @@ NSString *const kDownloadProgressUpdateNotification = @"kDownloadProgressUpdateN
         _fileURL = [coder decodeObjectForKey:@"fileURL"];
         _httpHeaders = [coder decodeObjectForKey:@"httpHeaders"];
         _savePath = [coder decodeObjectForKey:@"savePath"];
+        _resumeDataPath = [coder decodeObjectForKey:@"resumeDataPath"];
         _totalSize = [coder decodeInt64ForKey:@"totalSize"];
         _downloadedSize = [coder decodeInt64ForKey:@"downloadedSize"];
         _downloadProgress = [coder decodeFloatForKey:@"downloadProgress"];
@@ -60,6 +62,10 @@ NSString *const kDownloadProgressUpdateNotification = @"kDownloadProgressUpdateN
 
 - (void)removeData {
     [DownloadHelper removeItemAtPath:self.savePath];
+}
+
+- (void)removeResumeData {
+    [DownloadHelper removeItemAtPath:self.resumeDataPath];
 }
 
 #pragma mark getter && setter 
@@ -119,6 +125,10 @@ NSString *const kDownloadProgressUpdateNotification = @"kDownloadProgressUpdateN
 
 - (NSString *)savePath {
     return [[DownloadHelper defaultDownloadSavePath] stringByAppendingPathComponent:self.fileName];
+}
+
+- (NSString *)resumeDataPath {
+    return [[DownloadHelper defaultDownloadSavePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",[self.fileName stringByDeletingPathExtension]]];
 }
 
 - (NSString *)fileName {

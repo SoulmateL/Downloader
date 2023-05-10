@@ -24,7 +24,7 @@
 //    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
 //    model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
-    model1.fileURL = @"https://central-1253756937.cos.ap-chengdu.myqcloud.com/ebook/2022-5-26/16535514913201.pdf";
+    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
 
     DownloadModel *model2 = [[DownloadModel alloc] init];
     model2.queuePriority = NSOperationQueuePriorityLow;
@@ -92,7 +92,7 @@
         DownloadModel *model1 = [[DownloadModel alloc] init];
 //        model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 //        model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
-        model1.fileURL = @"https://central-1253756937.cos.ap-chengdu.myqcloud.com/ebook/2022-5-26/16535514913201.pdf";
+        model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
     
         DownloadModel *model2 = [[DownloadModel alloc] init];
         model2.queuePriority = NSOperationQueuePriorityLow;

@@ -43,11 +43,6 @@
         __weak __typeof(self) weakSelf = self;
         self.task.completionHander = ^(NSError * _Nonnull error) {
             __strong __typeof(weakSelf) strongSelf = weakSelf;
-            if (!error) {
-                strongSelf.downloadItem.downloadStatus = DownloadStateFinished;
-            }else if (error.code != -999){
-                strongSelf.downloadItem.downloadStatus = DownloadStateFailed;
-            }
             [strongSelf done];
         };
     }

@@ -30,6 +30,7 @@ UIKIT_EXTERN NSNotificationName const kDownloadProgressUpdateNotification;
 @property (nonatomic, copy) NSString *fileType;         // 文件类型
 @property (nonatomic, copy) NSString *fileURL;          // 下载链接
 @property (nonatomic, copy) NSString *savePath;         // 文件保存路径
+@property (nonatomic, copy) NSString *resumeDataPath;         // 临时文件保存路径
 @property (nonatomic, copy) NSDictionary *httpHeaders;         // 请求下载头
 @property (nonatomic, assign) DownloadState downloadStatus;   // 下载状态
 @property (nonatomic, assign) float downloadProgress;        // 下载进度，0.0 - 1.0
@@ -47,5 +48,7 @@ UIKIT_EXTERN NSNotificationName const kDownloadProgressUpdateNotification;
 @property (nonatomic, copy, readonly) NSDictionary *attributes;  // 属性列表
 
 - (void)removeData;
+
+- (void)removeResumeData;
 
 @end
