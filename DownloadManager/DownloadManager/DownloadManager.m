@@ -205,12 +205,12 @@ void unlock(dispatch_semaphore_t semaphore) {
 /// 继续一个下载
 - (void)resumeWithTaskId:(nonnull NSString *)taskId {
     NSAssert(taskId, @"taskId不能为空");
-    if (self.reachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN && !self.allowsCellularAccess) {
-        return;
-    }
     DownloadModel *item = [self existsAtDownloadingListWithTaskId:taskId];
     if (item.downloadStatus != DownloadStateNotStarted) {
         item.downloadStatus = DownloadStateWaiting;
+    }
+    if (self.reachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN && !self.allowsCellularAccess) {
+        return;
     }
     [self addOperationWithTaskId:taskId];
 }

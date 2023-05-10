@@ -23,8 +23,8 @@
     DownloadModel *model1 = [[DownloadModel alloc] init];
 //    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
-//    model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
-    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
+    model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+//    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
 
     DownloadModel *model2 = [[DownloadModel alloc] init];
     model2.queuePriority = NSOperationQueuePriorityLow;
@@ -34,7 +34,7 @@
     model3.queuePriority = NSOperationQueuePriorityHigh;
     model3.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
     [DownloadManager shareManager].maxConcurrentDownloads = 1;
-    [DownloadManager shareManager].allowsCellularAccess = YES;
+    [DownloadManager shareManager].allowsCellularAccess = NO;
 
     if (![DownloadManager shareManager].taskList.count) {
         [[DownloadManager shareManager] startWithDownloadItem:model1];
@@ -91,8 +91,8 @@
     if (![DownloadManager shareManager].taskList.count) {
         DownloadModel *model1 = [[DownloadModel alloc] init];
 //        model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
-//        model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
-        model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
+        model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+//        model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
     
         DownloadModel *model2 = [[DownloadModel alloc] init];
         model2.queuePriority = NSOperationQueuePriorityLow;
