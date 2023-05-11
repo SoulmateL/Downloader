@@ -6,7 +6,7 @@
 //
 
 #import "AppDelegate.h"
-#import "DownloadManager.h"
+#import "DownloadManagerHeader.h"
 
 @interface AppDelegate ()
 
@@ -17,12 +17,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [DownloadSessionManager sharedManager];
+    
     return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     [[DownloadManager shareManager] saveDownloadDataWhenTerminate];
 }
+
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler {
+    if ([identifier isEqualToString:[DownloadSessionManager sharedManager].identifier]) {
+        [DownloadSessionManager sharedManager].completionHandler = completionHandler;
+    }
+}
+
 
 #pragma mark - UISceneSession lifecycle
 

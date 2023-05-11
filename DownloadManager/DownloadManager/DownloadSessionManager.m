@@ -54,11 +54,21 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     configuration.HTTPMaximumConnectionsPerHost = 60;
     configuration.sessionSendsLaunchEvents = YES;
     _sessionManager = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    [_sessionManager getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
+        for (NSURLSessionDownloadTask *task in downloadTasks) {
+            NSLog(@"~~~~~~%zd",task.state);
+            NSLog(@"~~~~~~%@",task.taskDescription);
+            [task cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+                [self saveResumeData:resumeData resumePath:task.taskDescription];
+            }];
+        }
+    }];
 }
 
 #pragma mark public method
 
 - (void)cancelAllTask{
+    [self saveResumeData];
     [self.sessionManager invalidateAndCancel];
 }
 
@@ -74,6 +84,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     else {
         task.dataTask = [self.sessionManager downloadTaskWithRequest:request];
     }
+    task.dataTask.taskDescription = item.resumeDataPath;
     if (!task.dataTask) return nil;
     [self.lock lock];
     [self.allTaskMap setObject:task forKey:task.dataTask];
@@ -85,6 +96,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
 - (void)cancelTask:(DownloadSessionDataTask *)task {
     if (!task) return;
     [task.dataTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+        NSLog(@"~~~~~~%@",resumeData);
         [self saveResumeData:resumeData resumePath:task.downloadItem.resumeDataPath];
     }];
     [self.lock lock];
@@ -104,6 +116,16 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
         NSLog(@"%@",writeError.description);
     }
 }
+
+- (void)saveResumeData {
+    for (DownloadSessionDataTask *task in self.allTaskMap.allValues) {
+        [task.dataTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+            NSLog(@"~~~~~~%@",resumeData);
+            [self saveResumeData:resumeData resumePath:task.downloadItem.resumeDataPath];
+        }];
+    }
+}
+
 
 #pragma mark - NSURLSessionDownloadDelegate
 
@@ -163,58 +185,18 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
 }
 
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {
-//    if (self.completionHandler) {
-//        void (^completionHandler)(void) = self.completionHandler;
-//        self.completionHandler = nil;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            completionHandler();
-//        });
-//    }
+    if (self.completionHandler) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.completionHandler();
+            self.completionHandler = nil;
+        });
+    }
 }
 
-//#pragma mark  NSURLSessionDataDelegate
-//
-//// 接收到服务器响应的时候调用
-//- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
-//    DownloadSessionDataTask *downloadTask = [self.allTaskMap objectForKey:dataTask];
-//    if (!downloadTask) return;
-//    DownloadModel *downloadItem = downloadTask.downloadItem;
-//    if (!downloadItem) return;
-//    if (downloadItem.downloadedSize == 0) {
-//        downloadItem.totalSize = response.expectedContentLength;
-//    }
-//    [downloadTask.stream open];
-//    completionHandler(NSURLSessionResponseAllow);
-//}
-//
-//// 接收到服务器返回数据时调用，会调用多次
-//- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
-//    DownloadSessionDataTask *downloadTask = [self.allTaskMap objectForKey:dataTask];
-//    if (!downloadTask) return;
-//    DownloadModel *downloadItem = downloadTask.downloadItem;
-//    if (!downloadItem) return;
-//    downloadItem.downloadedSize += data.length;
-//    NSLog(@"~~~~~~~~~~%lld",downloadItem.downloadedSize);
-//    NSLog(@"~~~~~~~~~~%lld",downloadItem.totalSize);
-//    // 输出流写数据
-//    [downloadTask.stream write:data.bytes maxLength:data.length];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kDownloadProgressUpdateNotification object:downloadItem];
-//    });
-//}
-//
-//// 当请求完成之后调用，如果请求失败error有值
-//- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-//    DownloadSessionDataTask *downloadTask = [self.allTaskMap objectForKey:(NSURLSessionDataTask *)task];
-//    if (!downloadTask) return;
-//    DownloadModel *downloadItem = downloadTask.downloadItem;
-//    if (!downloadItem) return;
-//    // 关闭stream
-//    [downloadTask.stream close];
-//    downloadTask.stream = nil;
-//    if (downloadTask.completionHander) {
-//        downloadTask.completionHander(error);
-//    }
-//}
+#pragma mark getter && setter
+
+- (NSString *)identifier {
+    return kDownloadBackgroundSessionIdentifier;
+}
 
 @end

@@ -36,17 +36,20 @@
     [DownloadManager shareManager].maxConcurrentDownloads = 1;
     [DownloadManager shareManager].allowsCellularAccess = NO;
 
-    if (![DownloadManager shareManager].taskList.count) {
-        [[DownloadManager shareManager] startWithDownloadItem:model1];
-        [[DownloadManager shareManager] startWithDownloadItem:model2];
-        [[DownloadManager shareManager] startWithDownloadItem:model3];
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![DownloadManager shareManager].taskList.count) {
+            [[DownloadManager shareManager] startWithDownloadItem:model1];
+            [[DownloadManager shareManager] startWithDownloadItem:model2];
+            [[DownloadManager shareManager] startWithDownloadItem:model3];
+        }
+        
+        else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[DownloadManager shareManager] resumeAllDownloadTask];
+            });
+        }
+    });
     
-    else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[DownloadManager shareManager] resumeAllDownloadTask];
-        });
-    }
     
     UIButton *resume = [UIButton buttonWithType:UIButtonTypeSystem];
     [resume setTitle:@"全部继续" forState:UIControlStateNormal];

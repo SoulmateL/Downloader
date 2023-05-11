@@ -196,17 +196,17 @@ void unlock(dispatch_semaphore_t semaphore) {
 
 /// 暂停全部下载
 - (void)pauseAllDownloadTask {
-    [self.taskQueue cancelAllOperations];
     for (DownloadModel *item in self.downloadingList) {
         [self pauseWithTaskId:item.taskId];
     }
+    [self.taskQueue cancelAllOperations];
 }
 
 /// 继续一个下载
 - (void)resumeWithTaskId:(nonnull NSString *)taskId {
     NSAssert(taskId, @"taskId不能为空");
     DownloadModel *item = [self existsAtDownloadingListWithTaskId:taskId];
-    if (item.downloadStatus != DownloadStateNotStarted) {
+    if (item.downloadStatus != DownloadStateDownloading) {
         item.downloadStatus = DownloadStateWaiting;
     }
     if (self.reachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN && !self.allowsCellularAccess) {
@@ -234,11 +234,11 @@ void unlock(dispatch_semaphore_t semaphore) {
 
 /// 删除所有下载中的
 - (void)removeAllDownloadingTask {
-    [self.taskQueue cancelAllOperations];
     for (DownloadModel *item in self.downloadingList) {
         [self removeOperationWithTaskId:item.taskId];
     }
     [[DownloadItemManager shareManager] removeAllDownloadingItem];
+    [self.taskQueue cancelAllOperations];
 }
 
 /// 删除所有下载完成的任务
@@ -274,8 +274,8 @@ void unlock(dispatch_semaphore_t semaphore) {
 }
 
 - (void)saveDownloadDataWhenTerminate {
-    [self pauseAllDownloadTask];
-    [[DownloadItemManager shareManager] archiveList];
+//    [self pauseAllDownloadTask];
+//    [[DownloadItemManager shareManager] archiveList];
 }
 
 #pragma mark NSNotification
