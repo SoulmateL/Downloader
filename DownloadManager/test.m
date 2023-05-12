@@ -1,8 +1,8 @@
 //
 //  test.m
-//  DownloadManager
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/3.
+//  Created by Jonathan on 2023/3/3.
 //
 
 #import "test.h"

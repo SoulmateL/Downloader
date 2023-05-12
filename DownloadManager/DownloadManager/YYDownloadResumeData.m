@@ -1,12 +1,12 @@
 //
-//  DownloadResumeData.m
-//  DownloadManager
+//  YYDownloadResumeData.m
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/5/10.
+//  Created by Jonathan on 2023/5/10.
 //
 
 #import <UIKit/UIKit.h>
-#import "DownloadResumeData.h"
+#import "YYDownloadResumeData.h"
 
 static NSString * const kNSURLSessionDownloadURL = @"NSURLSessionDownloadURL";
 static NSString * const kNSURLSessionResumeInfoTempFileName = @"NSURLSessionResumeInfoTempFileName";
@@ -18,11 +18,11 @@ static NSString * const kNSURLSessionResumeByteRange = @"NSURLSessionResumeByteR
 static NSString * const kNSURLSessionResumeInfoVersion = @"NSURLSessionResumeInfoVersion";
 static NSString * const kNSURLSessionResumeServerDownloadDate = @"NSURLSessionResumeServerDownloadDate";
 
-@interface DownloadResumeData()
+@interface YYDownloadResumeData()
 
 @end
 
-@implementation DownloadResumeData
+@implementation YYDownloadResumeData
 
 - (instancetype)initWithResumeData:(NSData *)resumeData {
     if (self = [super init]) {
@@ -159,12 +159,12 @@ static NSString * const kNSURLSessionResumeServerDownloadDate = @"NSURLSessionRe
     if (data == nil) {
         return  nil;
     }
-    NSMutableDictionary *resumeDictionary = [DownloadResumeData getResumeDictionary:data];
+    NSMutableDictionary *resumeDictionary = [YYDownloadResumeData getResumeDictionary:data];
     if (resumeDictionary == nil) {
         return nil;
     }
-    resumeDictionary[kResumeCurrentRequest] =  [DownloadResumeData correctRequestData: resumeDictionary[kResumeCurrentRequest]];
-    resumeDictionary[kResumeOriginalRequest] = [DownloadResumeData correctRequestData:resumeDictionary[kResumeOriginalRequest]];
+    resumeDictionary[kResumeCurrentRequest] =  [YYDownloadResumeData correctRequestData: resumeDictionary[kResumeCurrentRequest]];
+    resumeDictionary[kResumeOriginalRequest] = [YYDownloadResumeData correctRequestData:resumeDictionary[kResumeOriginalRequest]];
     NSData *result = [NSPropertyListSerialization dataWithPropertyList:resumeDictionary format:NSPropertyListXMLFormat_v1_0 options:0 error:nil];
     return result;
 }
@@ -174,10 +174,10 @@ static NSString * const kNSURLSessionResumeServerDownloadDate = @"NSURLSessionRe
     NSString *kResumeCurrentRequest = kNSURLSessionResumeCurrentRequest;
     NSString *kResumeOriginalRequest = kNSURLSessionResumeOriginalRequest;
     
-    NSData *cData = [DownloadResumeData correctResumeData:resumeData];
+    NSData *cData = [YYDownloadResumeData correctResumeData:resumeData];
     cData = cData ? cData:resumeData;
     NSURLSessionDownloadTask *task = [urlSession downloadTaskWithResumeData:cData];
-    NSMutableDictionary *resumeDic = [DownloadResumeData getResumeDictionary:cData];
+    NSMutableDictionary *resumeDic = [YYDownloadResumeData getResumeDictionary:cData];
     if (resumeDic) {
         if (task.originalRequest == nil) {
             NSData *originalReqData = resumeDic[kResumeOriginalRequest];

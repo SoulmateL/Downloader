@@ -1,13 +1,14 @@
 //
 //  ViewController.m
-//  DownloadManager
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/1.
+//  Created by Jonathan on 2023/3/1.
 //
 
 #import "ViewController.h"
-#import "DownloadManager.h"
+#import "YYDownloadManager.h"
 #import "DownloadTableViewCell.h"
+#import "YYDownloadTask.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -20,35 +21,31 @@
     
 
     
-    DownloadModel *model1 = [[DownloadModel alloc] init];
+    YYDownloadTask *model1 = [[YYDownloadTask alloc] init];
 //    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
-    model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+    model1.downloadURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
 //    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
 
-    DownloadModel *model2 = [[DownloadModel alloc] init];
+    YYDownloadTask *model2 = [[YYDownloadTask alloc] init];
     model2.queuePriority = NSOperationQueuePriorityLow;
-    model2.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
+    model2.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
 
-    DownloadModel *model3 = [[DownloadModel alloc] init];
+    YYDownloadTask *model3 = [[YYDownloadTask alloc] init];
     model3.queuePriority = NSOperationQueuePriorityHigh;
-    model3.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
-    [DownloadManager shareManager].maxConcurrentDownloads = 1;
-    [DownloadManager shareManager].allowsCellularAccess = NO;
+    model3.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (![DownloadManager shareManager].taskList.count) {
-            [[DownloadManager shareManager] startWithDownloadItem:model1];
-            [[DownloadManager shareManager] startWithDownloadItem:model2];
-            [[DownloadManager shareManager] startWithDownloadItem:model3];
-        }
-        
-        else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[DownloadManager shareManager] resumeAllDownloadTask];
-            });
-        }
-    });
+//    if (![YYDownloadManager shareManager].tasks.count) {
+//        [[YYDownloadManager shareManager] startWithTask:model1];
+//        [[YYDownloadManager shareManager] startWithTask:model2];
+//        [[YYDownloadManager shareManager] startWithTask:model3];
+//    }
+//
+//    else {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [[YYDownloadManager shareManager] resumeAllDownloadingTask];
+//        });
+//    }
     
     
     UIButton *resume = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -86,42 +83,41 @@
 }
 
 - (void)pause:(UIButton *)sender {
-    [[DownloadManager shareManager] pauseAllDownloadTask];
+    [[YYDownloadManager shareManager] pauseAllDownloadingTask];
     [self.tableView reloadData];
 }
 
 - (void)resume:(UIButton *)sender {
-    if (![DownloadManager shareManager].taskList.count) {
-        DownloadModel *model1 = [[DownloadModel alloc] init];
-//        model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
-        model1.fileURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
-//        model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
-    
-        DownloadModel *model2 = [[DownloadModel alloc] init];
-        model2.queuePriority = NSOperationQueuePriorityLow;
-        model2.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
+    if (![YYDownloadManager shareManager].tasks.count) {
+        YYDownloadTask *model1 = [[YYDownloadTask alloc] init];
+    //    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
-        DownloadModel *model3 = [[DownloadModel alloc] init];
+        model1.downloadURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+    //    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
+
+        YYDownloadTask *model2 = [[YYDownloadTask alloc] init];
+        model2.queuePriority = NSOperationQueuePriorityLow;
+        model2.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
+
+        YYDownloadTask *model3 = [[YYDownloadTask alloc] init];
         model3.queuePriority = NSOperationQueuePriorityHigh;
-        model3.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
-        [[DownloadManager shareManager] startWithDownloadItem:model1];
-        [[DownloadManager shareManager] startWithDownloadItem:model2];
-        [[DownloadManager shareManager] startWithDownloadItem:model3];
+        model3.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
+        [[YYDownloadManager shareManager] startWithTask:model1];
     }
-    else {
-        [[DownloadManager shareManager] resumeAllDownloadTask];
-    }
+//    else {
+//        [[YYDownloadManager shareManager] resumeAllDownloadingTask];
+//    }
     [self.tableView reloadData];
 }
 
 - (void)delete:(UIButton *)sender {
-    [[DownloadManager shareManager] removeAllDownloadTask];
+    [[YYDownloadManager shareManager] removeAllDownloadTask];
     [self.tableView reloadData];
 }
 
 - (void)status:(NSNotification *)notification {
-    DownloadModel *model = notification.object;
-    if (model.downloadStatus == DownloadStateFinished) {
+    NSObject<YYDownloadTaskDelegate> *model = notification.object;
+    if (model.downloadStatus == YYDownloadStatusFinished) {
         [self.tableView reloadData];
     }
 }
@@ -139,26 +135,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return [DownloadManager shareManager].downloadingList.count;
+        return [YYDownloadManager shareManager].downloadingTasks.count;
     }
-    return [DownloadManager shareManager].finishedList.count;
+    return [YYDownloadManager shareManager].downloadedTasks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         DownloadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DownloadTableViewCell class])];
-        cell.dataModel = [DownloadManager shareManager].downloadingList[indexPath.row];
+        cell.dataModel = [YYDownloadManager shareManager].downloadingTasks[indexPath.row];
         return cell;
     }
     DownloadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([DownloadTableViewCell class])];
-    cell.dataModel = [DownloadManager shareManager].finishedList[indexPath.row];
+    cell.dataModel = [YYDownloadManager shareManager].downloadedTasks[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) return;
-    DownloadModel *model = [DownloadManager shareManager].downloadingList[indexPath.row];
-    [[DownloadManager shareManager] resumeOrPauseWithTaskId:model.taskId];
+    [[YYDownloadManager shareManager] changeTaskStatusWhenUserTaped:[YYDownloadManager shareManager].downloadingTasks[indexPath.row]];
 }
 
 

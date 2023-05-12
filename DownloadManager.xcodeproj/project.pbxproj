@@ -17,10 +17,7 @@
 		186E002D29AF05F800CFD2EC /* DownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E002C29AF05F800CFD2EC /* DownloadManagerTests.m */; };
 		186E003729AF05F800CFD2EC /* DownloadManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E003629AF05F800CFD2EC /* DownloadManagerUITests.m */; };
 		186E003929AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E003829AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m */; };
-		186E004829AF061300CFD2EC /* DownloadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 186E004729AF061300CFD2EC /* DownloadModel.m */; };
 		1874B7272A09D40100638317 /* DownloadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1874B7262A09D40100638317 /* DownloadTableViewCell.m */; };
-		18923EB629B97425005A5027 /* DownloadSessionDataTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 18923EB529B97425005A5027 /* DownloadSessionDataTask.m */; };
-		18AF4C9329B17E1800581BBC /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4C9229B17E1800581BBC /* DownloadOperation.m */; };
 		18AF4CBA29B17F6F00581BBC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 18AF4C9529B17F6F00581BBC /* LICENSE */; };
 		18AF4CBB29B17F6F00581BBC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 18AF4C9629B17F6F00581BBC /* README.md */; };
 		18AF4CBC29B17F6F00581BBC /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4C9929B17F6F00581BBC /* UIProgressView+AFNetworking.m */; };
@@ -38,12 +35,14 @@
 		18AF4CC829B17F6F00581BBC /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CB429B17F6F00581BBC /* AFURLRequestSerialization.m */; };
 		18AF4CC929B17F6F00581BBC /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CB629B17F6F00581BBC /* AFNetworkReachabilityManager.m */; };
 		18AF4CCA29B17F6F00581BBC /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CB729B17F6F00581BBC /* AFSecurityPolicy.m */; };
-		18AF4CCD29B1853200581BBC /* DownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CCC29B1853200581BBC /* DownloadHelper.m */; };
-		18AF4CD029B194D900581BBC /* DownloadItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CCF29B194D900581BBC /* DownloadItemManager.m */; };
-		18AF4CD629B1C7A100581BBC /* DownloadSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CD529B1C7A100581BBC /* DownloadSessionManager.m */; };
+		18AF4CCD29B1853200581BBC /* YYDownloadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CCC29B1853200581BBC /* YYDownloadHelper.m */; };
+		18AF4CD029B194D900581BBC /* YYDownloadTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CCF29B194D900581BBC /* YYDownloadTaskManager.m */; };
+		18AF4CD629B1C7A100581BBC /* YYDownloadSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CD529B1C7A100581BBC /* YYDownloadSessionManager.m */; };
 		18AF4CD929B1E86900581BBC /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AF4CD829B1E86900581BBC /* test.m */; };
-		18BEB5372A0B399E00B5A94E /* DownloadResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BEB5362A0B399E00B5A94E /* DownloadResumeData.m */; };
-		18C6D51829B0A957000FCD37 /* DownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C6D51729B0A957000FCD37 /* DownloadManager.m */; };
+		18BEB5372A0B399E00B5A94E /* YYDownloadResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BEB5362A0B399E00B5A94E /* YYDownloadResumeData.m */; };
+		18C2C1142A0DCE49002107BE /* YYDownloadTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2C1132A0DCE49002107BE /* YYDownloadTask.m */; };
+		18C2C1172A0DE656002107BE /* YYDownloadConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2C1162A0DE656002107BE /* YYDownloadConfiguration.m */; };
+		18C6D51829B0A957000FCD37 /* YYDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C6D51729B0A957000FCD37 /* YYDownloadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,14 +80,9 @@
 		186E003229AF05F800CFD2EC /* DownloadManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DownloadManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		186E003629AF05F800CFD2EC /* DownloadManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManagerUITests.m; sourceTree = "<group>"; };
 		186E003829AF05F800CFD2EC /* DownloadManagerUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManagerUITestsLaunchTests.m; sourceTree = "<group>"; };
-		186E004629AF061300CFD2EC /* DownloadModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadModel.h; sourceTree = "<group>"; };
-		186E004729AF061300CFD2EC /* DownloadModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadModel.m; sourceTree = "<group>"; };
+		186E004629AF061300CFD2EC /* YYDownloadTaskDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadTaskDelegate.h; sourceTree = "<group>"; };
 		1874B7252A09D40100638317 /* DownloadTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewCell.h; sourceTree = "<group>"; };
 		1874B7262A09D40100638317 /* DownloadTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewCell.m; sourceTree = "<group>"; };
-		18923EB429B97425005A5027 /* DownloadSessionDataTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadSessionDataTask.h; sourceTree = "<group>"; };
-		18923EB529B97425005A5027 /* DownloadSessionDataTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadSessionDataTask.m; sourceTree = "<group>"; };
-		18AF4C9129B17E1800581BBC /* DownloadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
-		18AF4C9229B17E1800581BBC /* DownloadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadOperation.m; sourceTree = "<group>"; };
 		18AF4C9529B17F6F00581BBC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		18AF4C9629B17F6F00581BBC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		18AF4C9829B17F6F00581BBC /* WKWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -124,19 +118,23 @@
 		18AF4CB729B17F6F00581BBC /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		18AF4CB829B17F6F00581BBC /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCompatibilityMacros.h; sourceTree = "<group>"; };
 		18AF4CB929B17F6F00581BBC /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
-		18AF4CCB29B1853200581BBC /* DownloadHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadHelper.h; sourceTree = "<group>"; };
-		18AF4CCC29B1853200581BBC /* DownloadHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadHelper.m; sourceTree = "<group>"; };
-		18AF4CCE29B194D900581BBC /* DownloadItemManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadItemManager.h; sourceTree = "<group>"; };
-		18AF4CCF29B194D900581BBC /* DownloadItemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadItemManager.m; sourceTree = "<group>"; };
-		18AF4CD429B1C7A100581BBC /* DownloadSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadSessionManager.h; sourceTree = "<group>"; };
-		18AF4CD529B1C7A100581BBC /* DownloadSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadSessionManager.m; sourceTree = "<group>"; };
+		18AF4CCB29B1853200581BBC /* YYDownloadHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadHelper.h; sourceTree = "<group>"; };
+		18AF4CCC29B1853200581BBC /* YYDownloadHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadHelper.m; sourceTree = "<group>"; };
+		18AF4CCE29B194D900581BBC /* YYDownloadTaskManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadTaskManager.h; sourceTree = "<group>"; };
+		18AF4CCF29B194D900581BBC /* YYDownloadTaskManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadTaskManager.m; sourceTree = "<group>"; };
+		18AF4CD429B1C7A100581BBC /* YYDownloadSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadSessionManager.h; sourceTree = "<group>"; };
+		18AF4CD529B1C7A100581BBC /* YYDownloadSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadSessionManager.m; sourceTree = "<group>"; };
 		18AF4CD729B1E86900581BBC /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
 		18AF4CD829B1E86900581BBC /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
-		18BEB5352A0B399E00B5A94E /* DownloadResumeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadResumeData.h; sourceTree = "<group>"; };
-		18BEB5362A0B399E00B5A94E /* DownloadResumeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadResumeData.m; sourceTree = "<group>"; };
-		18C6D51629B0A957000FCD37 /* DownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
-		18C6D51729B0A957000FCD37 /* DownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DownloadManager.m; sourceTree = "<group>"; };
-		18C6D51929B0A995000FCD37 /* DownloadManagerHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DownloadManagerHeader.h; sourceTree = "<group>"; };
+		18BEB5352A0B399E00B5A94E /* YYDownloadResumeData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadResumeData.h; sourceTree = "<group>"; };
+		18BEB5362A0B399E00B5A94E /* YYDownloadResumeData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadResumeData.m; sourceTree = "<group>"; };
+		18C2C1122A0DCE49002107BE /* YYDownloadTask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadTask.h; sourceTree = "<group>"; };
+		18C2C1132A0DCE49002107BE /* YYDownloadTask.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadTask.m; sourceTree = "<group>"; };
+		18C2C1152A0DE656002107BE /* YYDownloadConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadConfiguration.h; sourceTree = "<group>"; };
+		18C2C1162A0DE656002107BE /* YYDownloadConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadConfiguration.m; sourceTree = "<group>"; };
+		18C6D51629B0A957000FCD37 /* YYDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadManager.h; sourceTree = "<group>"; };
+		18C6D51729B0A957000FCD37 /* YYDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYDownloadManager.m; sourceTree = "<group>"; };
+		18C6D51929B0A995000FCD37 /* YYDownloadManagerHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDownloadManagerHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,23 +226,22 @@
 		186E004529AF060000CFD2EC /* DownloadManager */ = {
 			isa = PBXGroup;
 			children = (
-				18C6D51929B0A995000FCD37 /* DownloadManagerHeader.h */,
-				186E004629AF061300CFD2EC /* DownloadModel.h */,
-				186E004729AF061300CFD2EC /* DownloadModel.m */,
-				18C6D51629B0A957000FCD37 /* DownloadManager.h */,
-				18C6D51729B0A957000FCD37 /* DownloadManager.m */,
-				18AF4CCE29B194D900581BBC /* DownloadItemManager.h */,
-				18AF4CCF29B194D900581BBC /* DownloadItemManager.m */,
-				18AF4CD429B1C7A100581BBC /* DownloadSessionManager.h */,
-				18AF4CD529B1C7A100581BBC /* DownloadSessionManager.m */,
-				18AF4C9129B17E1800581BBC /* DownloadOperation.h */,
-				18AF4C9229B17E1800581BBC /* DownloadOperation.m */,
-				18923EB429B97425005A5027 /* DownloadSessionDataTask.h */,
-				18923EB529B97425005A5027 /* DownloadSessionDataTask.m */,
-				18AF4CCB29B1853200581BBC /* DownloadHelper.h */,
-				18AF4CCC29B1853200581BBC /* DownloadHelper.m */,
-				18BEB5352A0B399E00B5A94E /* DownloadResumeData.h */,
-				18BEB5362A0B399E00B5A94E /* DownloadResumeData.m */,
+				18C2C1152A0DE656002107BE /* YYDownloadConfiguration.h */,
+				18C2C1162A0DE656002107BE /* YYDownloadConfiguration.m */,
+				18AF4CCB29B1853200581BBC /* YYDownloadHelper.h */,
+				18AF4CCC29B1853200581BBC /* YYDownloadHelper.m */,
+				18C6D51629B0A957000FCD37 /* YYDownloadManager.h */,
+				18C6D51729B0A957000FCD37 /* YYDownloadManager.m */,
+				18C6D51929B0A995000FCD37 /* YYDownloadManagerHeader.h */,
+				18BEB5352A0B399E00B5A94E /* YYDownloadResumeData.h */,
+				18BEB5362A0B399E00B5A94E /* YYDownloadResumeData.m */,
+				18AF4CD429B1C7A100581BBC /* YYDownloadSessionManager.h */,
+				18AF4CD529B1C7A100581BBC /* YYDownloadSessionManager.m */,
+				18C2C1122A0DCE49002107BE /* YYDownloadTask.h */,
+				18C2C1132A0DCE49002107BE /* YYDownloadTask.m */,
+				186E004629AF061300CFD2EC /* YYDownloadTaskDelegate.h */,
+				18AF4CCE29B194D900581BBC /* YYDownloadTaskManager.h */,
+				18AF4CCF29B194D900581BBC /* YYDownloadTaskManager.m */,
 			);
 			path = DownloadManager;
 			sourceTree = "<group>";
@@ -442,10 +439,10 @@
 			files = (
 				18AF4CC329B17F6F00581BBC /* AFAutoPurgingImageCache.m in Sources */,
 				18AF4CBC29B17F6F00581BBC /* UIProgressView+AFNetworking.m in Sources */,
-				18AF4C9329B17E1800581BBC /* DownloadOperation.m in Sources */,
 				18AF4CC629B17F6F00581BBC /* AFHTTPSessionManager.m in Sources */,
 				186E001829AF05F600CFD2EC /* ViewController.m in Sources */,
 				1874B7272A09D40100638317 /* DownloadTableViewCell.m in Sources */,
+				18C2C1142A0DCE49002107BE /* YYDownloadTask.m in Sources */,
 				186E001229AF05F600CFD2EC /* AppDelegate.m in Sources */,
 				18AF4CBE29B17F6F00581BBC /* AFNetworkActivityIndicatorManager.m in Sources */,
 				18AF4CC829B17F6F00581BBC /* AFURLRequestSerialization.m in Sources */,
@@ -453,22 +450,21 @@
 				18AF4CC429B17F6F00581BBC /* AFImageDownloader.m in Sources */,
 				18AF4CC929B17F6F00581BBC /* AFNetworkReachabilityManager.m in Sources */,
 				18AF4CC229B17F6F00581BBC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
-				18AF4CD629B1C7A100581BBC /* DownloadSessionManager.m in Sources */,
+				18AF4CD629B1C7A100581BBC /* YYDownloadSessionManager.m in Sources */,
 				18AF4CD929B1E86900581BBC /* test.m in Sources */,
 				18AF4CC729B17F6F00581BBC /* AFURLSessionManager.m in Sources */,
 				18AF4CBD29B17F6F00581BBC /* UIRefreshControl+AFNetworking.m in Sources */,
 				18AF4CC029B17F6F00581BBC /* UIImageView+AFNetworking.m in Sources */,
-				186E004829AF061300CFD2EC /* DownloadModel.m in Sources */,
 				18AF4CC529B17F6F00581BBC /* AFURLResponseSerialization.m in Sources */,
 				186E001529AF05F600CFD2EC /* SceneDelegate.m in Sources */,
-				18C6D51829B0A957000FCD37 /* DownloadManager.m in Sources */,
-				18AF4CD029B194D900581BBC /* DownloadItemManager.m in Sources */,
-				18923EB629B97425005A5027 /* DownloadSessionDataTask.m in Sources */,
-				18BEB5372A0B399E00B5A94E /* DownloadResumeData.m in Sources */,
-				18AF4CCD29B1853200581BBC /* DownloadHelper.m in Sources */,
+				18C6D51829B0A957000FCD37 /* YYDownloadManager.m in Sources */,
+				18AF4CD029B194D900581BBC /* YYDownloadTaskManager.m in Sources */,
+				18BEB5372A0B399E00B5A94E /* YYDownloadResumeData.m in Sources */,
+				18AF4CCD29B1853200581BBC /* YYDownloadHelper.m in Sources */,
 				18AF4CC129B17F6F00581BBC /* UIButton+AFNetworking.m in Sources */,
 				18AF4CCA29B17F6F00581BBC /* AFSecurityPolicy.m in Sources */,
 				18AF4CBF29B17F6F00581BBC /* WKWebView+AFNetworking.m in Sources */,
+				18C2C1172A0DE656002107BE /* YYDownloadConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +654,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = test.DownloadManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -686,6 +683,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = test.DownloadManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

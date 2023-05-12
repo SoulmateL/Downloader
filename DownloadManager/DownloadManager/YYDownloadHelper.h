@@ -1,15 +1,15 @@
 //
-//  DownloadHelper.h
-//  DownloadManager
+//  YYDownloadHelper.h
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/3.
+//  Created by Jonathan on 2023/3/3.
 //
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DownloadHelper : NSObject
+@interface YYDownloadHelper : NSObject
 
 /// 删除文件
 /// - Parameter path: 文件路径
@@ -35,23 +35,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Parameter contentLength: 文件大小
 + (NSString *)calculateFileSize:(long long)contentLength;
 
-/// 下载中的临时缓存文件
-+ (NSString *)downloadingTempCachePath;
-
 /// 沙盒路径
 + (NSString *)documentDirectoryPath;
 
 /// 默认下载地址
 + (NSString *)defaultDownloadSavePath;
 
-/// 下载任务文件夹路径
-+ (NSString *)taskListDirectoryPath;
+/// 默认resumeData缓存地址
++ (NSString *)defaultDownloadResumeDataSavePath;
 
-/// 下载中的模型列表
-+ (NSString *)downloadingTaskListCachePath;
+/// 下载模型列表
++ (NSString *)downloadTaskCachePath;
 
-/// 下载完成的模型列表
-+ (NSString *)finishedTaskListCachePath;
 
 @end
 

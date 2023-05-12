@@ -1,15 +1,15 @@
 //
-//  DownloadResumeData.h
-//  DownloadManager
+//  YYDownloadResumeData.h
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/5/10.
+//  Created by Jonathan on 2023/5/10.
 //
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DownloadResumeData : NSObject
+@interface YYDownloadResumeData : NSObject
 @property (nonatomic, copy) NSString *downloadUrl;
 @property (nonatomic, strong) NSMutableURLRequest *currentRequest;
 @property (nonatomic, strong) NSMutableURLRequest *originalRequest;

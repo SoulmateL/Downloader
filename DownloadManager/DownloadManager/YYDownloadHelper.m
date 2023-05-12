@@ -1,13 +1,13 @@
 //
-//  DownloadHelper.m
-//  DownloadManager
+//  YYDownloadHelper.m
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/3.
+//  Created by Jonathan on 2023/3/3.
 //
 
-#import "DownloadHelper.h"
+#import "YYDownloadHelper.h"
 
-@implementation DownloadHelper
+@implementation YYDownloadHelper
 
 + (void)removeItemAtPath:(NSString *)path{
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -74,28 +74,20 @@
 }
 
 + (NSString *)documentDirectoryPath {
-    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"JJDownloadData"];
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"YYDownload"];
 }
 
 + (NSString *)defaultDownloadSavePath {
-    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"DownloadedCache"]];
+    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"YYDownload"]];
 }
 
-+ (NSString *)downloadingTempCachePath {
-    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"DownloadingTempCache"]];
++ (NSString *)defaultDownloadResumeDataSavePath {
+    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"YYResumeDownload"]];
 }
 
-+ (NSString *)taskListDirectoryPath {
-    NSString *path = [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"TaskList"]];
++ (NSString *)downloadTaskCachePath {
+    NSString *path = [[self documentDirectoryPath] stringByAppendingPathComponent:@"tasks.data"];
     return path;
-}
-
-+ (NSString *)downloadingTaskListCachePath {
-    return [[self taskListDirectoryPath] stringByAppendingPathComponent:@"DownloadingTask"];
-}
-
-+ (NSString *)finishedTaskListCachePath {
-    return [[self taskListDirectoryPath] stringByAppendingPathComponent:@"finishedTask"];
 }
 
 @end

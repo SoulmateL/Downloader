@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.m
-//  DownloadManager
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/1.
+//  Created by Jonathan on 2023/3/1.
 //
 
 #import "SceneDelegate.h"

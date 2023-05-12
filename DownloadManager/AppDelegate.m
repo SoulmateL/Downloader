@@ -1,12 +1,12 @@
 //
 //  AppDelegate.m
-//  DownloadManager
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/3/1.
+//  Created by Jonathan on 2023/3/1.
 //
 
 #import "AppDelegate.h"
-#import "DownloadManagerHeader.h"
+#import "YYDownloadManagerHeader.h"
 
 @interface AppDelegate ()
 
@@ -16,19 +16,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    [DownloadSessionManager sharedManager];
-    
+    // Override point for customization after application launch.    
     return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [[DownloadManager shareManager] saveDownloadDataWhenTerminate];
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler {
-    if ([identifier isEqualToString:[DownloadSessionManager sharedManager].identifier]) {
-        [DownloadSessionManager sharedManager].completionHandler = completionHandler;
+    if ([identifier isEqualToString:[YYDownloadSessionManager sharedManager].identifier]) {
+        [YYDownloadSessionManager sharedManager].completionHandler = completionHandler;
     }
 }
 

@@ -1,8 +1,8 @@
 //
 //  DownloadTableViewCell.m
-//  DownloadManager
+//  YYDownloadManager
 //
-//  Created by Apple on 2023/5/9.
+//  Created by Jonathan on 2023/5/9.
 //
 
 #import "DownloadTableViewCell.h"
@@ -39,24 +39,24 @@
     
 }
 
-- (void)updateWithStatus:(DownloadState)status {
+- (void)updateWithStatus:(YYDownloadStatus)status {
     switch (status) {
-        case DownloadStateNotStarted:
+        case YYDownloadStatusUnknow:
             self.status.text = @"未开始";
             break;
-        case DownloadStateWaiting:
+        case YYDownloadStatusWaiting:
             self.status.text = @"等待下载";
             break;
-        case DownloadStateDownloading:
+        case YYDownloadStatusDownloading:
             self.status.text = @"正在下载";
             break;
-        case DownloadStatePaused:
+        case YYDownloadStatusPaused:
             self.status.text = @"暂停下载";
             break;
-        case DownloadStateFailed:
+        case YYDownloadStatusFailed:
             self.status.text = @"下载失败";
             break;
-        case DownloadStateFinished:
+        case YYDownloadStatusFinished:
             self.status.text = @"下载完成";
             break;
             
@@ -65,7 +65,7 @@
     }
 }
 
-- (void)setDataModel:(DownloadModel *)dataModel {
+- (void)setDataModel:(NSObject<YYDownloadTaskDelegate> *)dataModel {
     _dataModel = dataModel;
     self.title.text = dataModel.fileName;
     [self updateWithStatus:dataModel.downloadStatus];
@@ -73,15 +73,15 @@
 }
 
 - (void)progress:(NSNotification *)notification {
-    DownloadModel *model = notification.object;
-    if (![model.taskId isEqualToString:self.dataModel.taskId]) return;
+    NSObject<YYDownloadTaskDelegate> *model = notification.object;
+    if (![model.downloadURL isEqualToString:self.dataModel.downloadURL]) return;
     self.progress.text = [NSString stringWithFormat:@"%lld/%lld",model.downloadedSize,model.totalSize];
 
 }
 
 - (void)status:(NSNotification *)notification {
-    DownloadModel *model = notification.object;
-    if (![model.taskId isEqualToString:self.dataModel.taskId]) return;
+    NSObject<YYDownloadTaskDelegate> *model = notification.object;
+    if (![model.downloadURL isEqualToString:self.dataModel.downloadURL]) return;
     [self updateWithStatus:model.downloadStatus];
 }
 

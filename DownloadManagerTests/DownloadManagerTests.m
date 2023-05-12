@@ -1,8 +1,8 @@
 //
-//  DownloadManagerTests.m
-//  DownloadManagerTests
+//  YYDownloadManagerTests.m
+//  YYDownloadManagerTests
 //
-//  Created by Apple on 2023/3/1.
+//  Created by Jonathan on 2023/3/1.
 //
 
 #import <XCTest/XCTest.h>
