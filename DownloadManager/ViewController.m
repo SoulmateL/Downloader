@@ -38,8 +38,8 @@
 
     if (![YYDownloadManager shareManager].tasks.count) {
         [[YYDownloadManager shareManager] startWithTask:model1];
-//        [[YYDownloadManager shareManager] startWithTask:model2];
-//        [[YYDownloadManager shareManager] startWithTask:model3];
+        [[YYDownloadManager shareManager] startWithTask:model2];
+        [[YYDownloadManager shareManager] startWithTask:model3];
     }
 
     else {
@@ -106,6 +106,8 @@
         model3.queuePriority = NSOperationQueuePriorityHigh;
         model3.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
         [[YYDownloadManager shareManager] startWithTask:model1];
+        [[YYDownloadManager shareManager] startWithTask:model2];
+        [[YYDownloadManager shareManager] startWithTask:model3];
     }
     else {
         [[YYDownloadManager shareManager] resumeAllDownloadingTask];

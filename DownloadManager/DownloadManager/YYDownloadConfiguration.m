@@ -28,7 +28,7 @@
     if (self = [super init]) {
         self.allowsCellularAccess = YES;
         self.timeoutIntervalForRequest = 60;
-        self.maxTaskCount = 1;
+        self.maxTaskCount = 2;
         self.saveRootPath = [YYDownloadHelper defaultDownloadSavePath];
     }
     return self;

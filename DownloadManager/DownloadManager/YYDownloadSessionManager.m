@@ -85,7 +85,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
 }
 
 - (void)startNextTask {
-    if (self.runningTask.count > [YYDownloadManager shareManager].configuration.maxTaskCount) return;
+    if (self.runningTask.count >= [YYDownloadManager shareManager].configuration.maxTaskCount) return;
     if (!self.waitingTask.count) return;
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"queuePriority" ascending:NO];
@@ -198,6 +198,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     if (![[YYDownloadTaskManager shareManager] taskWithDownloadURL:task.downloadURL]) return;
     if (task.downloadStatus == YYDownloadStatusPaused || task.downloadStatus == YYDownloadStatusWaiting || task.downloadStatus == YYDownloadStatusUnknow) {
         [self appendTaskToWaitQueueAndRemoveFormRuningQueue:task];
+        task.downloadStatus = YYDownloadStatusWaiting;
         [self startNextTask];
     }
 }
