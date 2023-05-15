@@ -34,7 +34,7 @@ static NSString *const kDownloadProgressUpdateNotification = @"kDownloadProgress
 /// 下载地址
 @property (nonatomic, copy) NSString *downloadURL;
 /// 文件保存路径
-@property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, copy, readonly) NSString *filePath;
 /// 恢复数据保存路径
 @property (nonatomic, copy, readonly) NSString *resumeDataPath;
 /// 请求下载头

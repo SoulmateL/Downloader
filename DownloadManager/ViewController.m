@@ -9,6 +9,7 @@
 #import "YYDownloadManager.h"
 #import "DownloadTableViewCell.h"
 #import "YYDownloadTask.h"
+#import "YYDownloadSessionManager.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -83,11 +84,13 @@
 }
 
 - (void)pause:(UIButton *)sender {
+//    [YYDownloadManager shareManager].configuration.allowsCellularAccess = NO;
     [[YYDownloadManager shareManager] pauseAllDownloadingTask];
     [self.tableView reloadData];
 }
 
 - (void)resume:(UIButton *)sender {
+//    [YYDownloadManager shareManager].configuration.allowsCellularAccess = NO;
     if (![YYDownloadManager shareManager].tasks.count) {
         YYDownloadTask *model1 = [[YYDownloadTask alloc] init];
         model1.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";

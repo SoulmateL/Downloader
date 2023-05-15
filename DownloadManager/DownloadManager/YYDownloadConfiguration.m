@@ -7,6 +7,7 @@
 
 #import "YYDownloadConfiguration.h"
 #import "YYDownloadHelper.h"
+#import "YYDownloadSessionManager.h"
 
 @implementation YYDownloadConfiguration
 

@@ -8,14 +8,8 @@
 #import "YYDownloadManager.h"
 #import "YYDownloadTaskManager.h"
 #import "YYDownloadSessionManager.h"
-#import "AFNetworking.h"
-#include <signal.h>
 
 @interface YYDownloadManager ()
-/// 网络状态
-@property (nonatomic, assign) AFNetworkReachabilityStatus reachabilityStatus;
-/// 网络状态监听
-@property (nonatomic, strong) AFNetworkReachabilityManager *reachabilityManager;
 
 @end
 
@@ -34,40 +28,9 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.configuration = [YYDownloadConfiguration defaultConfiguration];
-//        [self addReachabilityMonitor];
-        [self addNotifications];
     }
     return self;
 }
-
-- (void)addNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationWillTerminate:)
-                                                 name:UIApplicationWillTerminateNotification
-                                               object:nil];
-}
-
-- (void)addReachabilityMonitor {
-    _reachabilityManager = [AFNetworkReachabilityManager manager];
-    [_reachabilityManager startMonitoring];
-    _reachabilityStatus = _reachabilityManager.networkReachabilityStatus;
-    __weak typeof(self) weakSelf = self;
-    [_reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        __strong typeof (weakSelf) strongSelf = weakSelf;
-        strongSelf.reachabilityStatus = status;
-        /// WiFi
-        if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
-            [strongSelf resumeAllDownloadingTask];
-        }
-        /// WWAN
-        else if (status == AFNetworkReachabilityStatusReachableViaWWAN) {
-            if (!strongSelf.configuration.allowsCellularAccess) {
-                [strongSelf pauseAllDownloadingTask];
-            }
-        }
-    }];
-}
-
 
 #pragma mark 公共方法
 
@@ -119,13 +82,6 @@
     else if (task.downloadStatus == YYDownloadStatusPaused || task.downloadStatus == YYDownloadStatusFailed){
         [self resumeWithTask:task];
     }
-}
-
-#pragma mark NSNotification
-
-- (void)applicationWillTerminate:(NSNotification *)notification {
-//    [[YYDownloadSessionManager sharedManager] pauseAllTask];
-    
 }
 
 #pragma mark getter && setter

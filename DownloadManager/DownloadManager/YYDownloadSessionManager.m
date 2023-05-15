@@ -91,10 +91,6 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"queuePriority" ascending:NO];
     [self.waitingTask sortUsingDescriptors:@[sortDescriptor]];
     NSObject<YYDownloadTaskDelegate> *next = self.waitingTask.firstObject;
-//    if (YES) {
-//        next.downloadStatus = YYDownloadStatusPaused;
-//        return;
-//    }
     NSURLSessionDownloadTask *downloadTask = [self prepareDownloadTask:next];
     if (!downloadTask) return;
     [self appendTaskToRuningQueueAndRemoveFromWaitQueue:next];

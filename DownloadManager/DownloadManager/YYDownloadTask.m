@@ -28,7 +28,6 @@
     [coder encodeObject:self.fileType forKey:@"fileType"];
     [coder encodeObject:self.downloadURL forKey:@"downloadURL"];
     [coder encodeObject:self.requestHeader forKey:@"requestHeader"];
-    [coder encodeObject:self.filePath forKey:@"filePath"];
     [coder encodeInt64:self.totalSize forKey:@"totalSize"];
     [coder encodeInt64:self.downloadedSize forKey:@"downloadedSize"];
     [coder encodeFloat:self.downloadProgress forKey:@"downloadProgress"];
@@ -43,7 +42,6 @@
         _fileType = [coder decodeObjectForKey:@"fileType"];
         _downloadURL = [coder decodeObjectForKey:@"downloadURL"];
         _requestHeader = [coder decodeObjectForKey:@"requestHeader"];
-        _filePath = [coder decodeObjectForKey:@"filePath"];
         _totalSize = [coder decodeInt64ForKey:@"totalSize"];
         _downloadedSize = [coder decodeInt64ForKey:@"downloadedSize"];
         _downloadProgress = [coder decodeFloatForKey:@"downloadProgress"];
@@ -64,10 +62,7 @@
 }
 
 - (NSString *)filePath {
-    if (!_filePath) {
-        _filePath = [[YYDownloadConfiguration defaultConfiguration].saveRootPath stringByAppendingPathComponent:self.fileName];
-    }
-    return _filePath;
+    return [[YYDownloadConfiguration defaultConfiguration].saveRootPath stringByAppendingPathComponent:self.fileName];
 }
 
 - (NSString *)resumeDataPath {

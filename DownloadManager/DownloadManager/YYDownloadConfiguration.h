@@ -10,7 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YYDownloadConfiguration : NSObject
-/// 是否允许蜂窝网络下载
+/// 是否允许蜂窝网络下载  还没做 默认YES
 @property (nonatomic, assign) BOOL allowsCellularAccess;
 /// 请求超时时间
 @property (nonatomic, assign) NSTimeInterval timeoutIntervalForRequest;
