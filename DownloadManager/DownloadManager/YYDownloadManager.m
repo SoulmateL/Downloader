@@ -35,8 +35,16 @@
     if (self = [super init]) {
         self.configuration = [YYDownloadConfiguration defaultConfiguration];
 //        [self addReachabilityMonitor];
+        [self addNotifications];
     }
     return self;
+}
+
+- (void)addNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillTerminate:)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:nil];
 }
 
 - (void)addReachabilityMonitor {
@@ -111,6 +119,13 @@
     else if (task.downloadStatus == YYDownloadStatusPaused || task.downloadStatus == YYDownloadStatusFailed){
         [self resumeWithTask:task];
     }
+}
+
+#pragma mark NSNotification
+
+- (void)applicationWillTerminate:(NSNotification *)notification {
+//    [[YYDownloadSessionManager sharedManager] pauseAllTask];
+    
 }
 
 #pragma mark getter && setter

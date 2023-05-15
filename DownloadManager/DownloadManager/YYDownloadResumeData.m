@@ -33,8 +33,11 @@ static NSString * const kNSURLSessionResumeServerDownloadDate = @"NSURLSessionRe
 
 
 - (void)decodeResumeData:(NSData *)resumeData {
-    
     id resumeDataObj = [NSPropertyListSerialization propertyListWithData:resumeData options:0 format:0 error:nil];
+
+    if (@available(iOS 12.0, *)) {
+        resumeDataObj = [YYDownloadResumeData getResumeDictionary:resumeData];
+    }
     if ([resumeDataObj isKindOfClass:[NSDictionary class]]) {
         NSDictionary *resumeDict = resumeDataObj;
         NSString *downloadUrl = [resumeDict valueForKey:kNSURLSessionDownloadURL];

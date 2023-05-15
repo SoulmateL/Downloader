@@ -15,10 +15,12 @@
     if ([fileManager fileExistsAtPath:path]) {
         [fileManager removeItemAtPath:path error:&error];
     }
-    NSLog(@"path = %@",path);
-    NSLog(@"removefile error = %@",error.localizedDescription);
+    if (error) {
+        NSLog(@"path = %@",path);
+        NSLog(@"removefile error = %@",error.localizedDescription);
+    }
 }
-+ (NSString *)createFileAtPath:(NSString *)path{
++ (NSString *)createFileAtPath:(NSString *)path {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if(![fileManager fileExistsAtPath:path]) {
         [fileManager createFileAtPath:path contents:nil attributes:nil];
@@ -36,6 +38,34 @@
         }
     }
     return path;
+}
+
++ (BOOL)writeToPath:(NSString *)path data:(nonnull NSData *)data {
+    if (![self fileExistsAtPath:path]) {
+        [self createDirectoryAtPath:[path stringByDeletingLastPathComponent]];
+    }
+    NSError *error;
+    if ([data writeToFile:path options:NSDataWritingAtomic error:&error]) {
+        return YES;
+    }
+    else {
+        NSLog(@"%@",error.description);
+        return NO;
+    }
+}
+
++ (BOOL)moveItemAtURL:(NSURL *)srcURL toURL:(NSURL *)dstURL {
+    if (![self fileExistsAtPath:dstURL.path]) {
+        [self createDirectoryAtPath:[dstURL.path stringByDeletingLastPathComponent]];
+    }
+    NSError *error;
+    if ([[NSFileManager defaultManager] moveItemAtURL:srcURL toURL:dstURL error:&error]) {
+        return YES;
+    }
+    else {
+        NSLog(@"%@",error.description);
+        return NO;
+    }
 }
 
 + (BOOL)fileExistsAtPath:(NSString *)path {
@@ -78,11 +108,11 @@
 }
 
 + (NSString *)defaultDownloadSavePath {
-    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"YYDownload"]];
+    return [[self documentDirectoryPath] stringByAppendingPathComponent:@"YYDownload"];
 }
 
 + (NSString *)defaultDownloadResumeDataSavePath {
-    return [self createDirectoryAtPath:[[self documentDirectoryPath] stringByAppendingPathComponent:@"YYResumeDownload"]];
+    return [[self documentDirectoryPath] stringByAppendingPathComponent:@"YYResumeDownload"];
 }
 
 + (NSString *)downloadTaskCachePath {

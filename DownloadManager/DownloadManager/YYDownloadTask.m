@@ -29,7 +29,6 @@
     [coder encodeObject:self.downloadURL forKey:@"downloadURL"];
     [coder encodeObject:self.requestHeader forKey:@"requestHeader"];
     [coder encodeObject:self.filePath forKey:@"filePath"];
-    [coder encodeObject:self.resumeDataPath forKey:@"resumeDataPath"];
     [coder encodeInt64:self.totalSize forKey:@"totalSize"];
     [coder encodeInt64:self.downloadedSize forKey:@"downloadedSize"];
     [coder encodeFloat:self.downloadProgress forKey:@"downloadProgress"];
@@ -45,7 +44,6 @@
         _downloadURL = [coder decodeObjectForKey:@"downloadURL"];
         _requestHeader = [coder decodeObjectForKey:@"requestHeader"];
         _filePath = [coder decodeObjectForKey:@"filePath"];
-        _resumeDataPath = [coder decodeObjectForKey:@"resumeDataPath"];
         _totalSize = [coder decodeInt64ForKey:@"totalSize"];
         _downloadedSize = [coder decodeInt64ForKey:@"downloadedSize"];
         _downloadProgress = [coder decodeFloatForKey:@"downloadProgress"];
@@ -53,10 +51,6 @@
         _queuePriority = [coder decodeIntegerForKey:@"queuePriority"];
     }
     return self;
-}
-
-+ (BOOL)supportsSecureCoding {
-    return YES;
 }
 
 #pragma mark getter && setter
@@ -77,10 +71,7 @@
 }
 
 - (NSString *)resumeDataPath {
-    if (!_resumeDataPath) {
-        _resumeDataPath = [[YYDownloadHelper defaultDownloadResumeDataSavePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",[self.fileName stringByDeletingPathExtension]]];
-    }
-    return _resumeDataPath;
+    return [[YYDownloadHelper defaultDownloadResumeDataSavePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",[self.fileName stringByDeletingPathExtension]]];
 }
 
 - (NSString *)fileName {

@@ -38,21 +38,13 @@
     if (self = [super init]) {
         self.tasks = [NSMutableArray array];
         self.lock = [[NSLock alloc] init];
-        NSURL *taskPathURL = [NSURL fileURLWithPath:[YYDownloadHelper downloadTaskCachePath]];
-        NSData *cacheTaskData = [NSData dataWithContentsOfURL:taskPathURL];
-        NSError *error;
-        NSSet *set = [NSSet setWithArray:@[[NSObject<YYDownloadTaskDelegate> class],[NSMutableArray class],[NSArray class],[NSString class]]];
-        NSMutableArray *cacheTasks = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:cacheTaskData error:&error];
+        NSMutableArray *cacheTasks = [NSKeyedUnarchiver unarchiveObjectWithFile:[YYDownloadHelper downloadTaskCachePath]];
         if (cacheTasks.count) {
             [self.lock lock];
             [self.tasks addObjectsFromArray:cacheTasks];
             [self.lock unlock];
             [self updateTasks];
         }
-        else {
-            NSLog(@"%@",error.localizedDescription);
-        }
-
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(downloadStatusChanged:)
                                                      name:kDownloadStatusChangedNotification
@@ -77,16 +69,7 @@
             [self.downloadingTasks addObject:task];
         }
     }
-    NSError *error;
-    NSData *taskData = [NSKeyedArchiver archivedDataWithRootObject:self.tasks requiringSecureCoding:NO error:&error];
-    NSURL *taskPathURL = [NSURL fileURLWithPath:[YYDownloadHelper downloadTaskCachePath]];
-    [taskPathURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-    if ([taskData writeToURL:taskPathURL options:NSDataWritingAtomic error:&error]) {
-        NSLog(@"成功存储任务列表");
-    }
-    else {
-        NSLog(@"%@",error.localizedDescription);
-    }    
+    [NSKeyedArchiver archiveRootObject:self.tasks toFile:[YYDownloadHelper downloadTaskCachePath]];
     [self.lock unlock];
 }
 
@@ -97,6 +80,8 @@
     if (item.downloadStatus == YYDownloadStatusFinished) {
         [self updateTasks];
     }
+    
+    [NSKeyedArchiver archiveRootObject:self.tasks toFile:[YYDownloadHelper downloadTaskCachePath]];
 }
 
 #pragma mark 公有方法

@@ -27,6 +27,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Parameter path: 文件路径
 + (BOOL)fileExistsAtPath:(NSString *)path;
 
+
+/// 写入文件
+/// - Parameters:
+///   - path: 文件路径
+///   - error: 错误
++ (BOOL)writeToPath:(NSString *)path data:(NSData *)data;
+
+/// 移动文件
+/// - Parameters:
+///   - srcURL: 移动文件路径
+///   - dstURL: 目标文件路径
++ (BOOL)moveItemAtURL:(NSURL *)srcURL toURL:(NSURL *)dstURL;
+
 /// 文件大小
 /// - Parameter path: 文件路径
 + (unsigned long long)fileSizeForPath:(NSString *)path ;

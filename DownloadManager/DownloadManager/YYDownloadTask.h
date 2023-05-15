@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *downloadURL;
 /// 文件保存路径
 @property (nonatomic, copy) NSString *filePath;
-/// 临时文件保存路径
-@property (nonatomic, copy) NSString *resumeDataPath;
+/// 恢复数据保存路径
+@property (nonatomic, copy, readonly) NSString *resumeDataPath;
 /// 请求下载头
 @property (nonatomic, copy) NSDictionary *requestHeader;
 /// 下载状态

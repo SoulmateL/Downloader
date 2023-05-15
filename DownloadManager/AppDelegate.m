@@ -16,11 +16,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.    
+    // Override point for customization after application launch.
+    [YYDownloadSessionManager sharedManager];
     return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[YYDownloadTaskManager shareManager] archiveTasksData];
 }
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler {

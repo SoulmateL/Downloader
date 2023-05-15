@@ -49,6 +49,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
 - (void)restoreStatus {
     [self.sessionManager getTasksWithCompletionHandler:^(NSArray<NSURLSessionDataTask *> * _Nonnull dataTasks, NSArray<NSURLSessionUploadTask *> * _Nonnull uploadTasks, NSArray<NSURLSessionDownloadTask *> * _Nonnull downloadTasks) {
         for (NSURLSessionDownloadTask *downloadTask in downloadTasks) {
+            NSLog(@"~~~~~~~~~~~~%zd",downloadTask.state);
             NSString *downloadURL = downloadTask.currentRequest.URL.absoluteString;
             NSObject<YYDownloadTaskDelegate> *task = [[YYDownloadTaskManager shareManager] taskWithDownloadURL:downloadURL];
             if (!task) {
@@ -63,9 +64,6 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
             if (downloadTask.state == NSURLSessionTaskStateRunning) {
                 task.downloadTask = downloadTask;
                 task.downloadStatus = YYDownloadStatusDownloading;
-            }
-            else if (downloadTask.state == NSURLSessionTaskStateSuspended) {
-                [self pauseTask:task];
             }
         }
     }];
@@ -135,15 +133,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
         resumeData = [YYDownloadResumeData cleanResumeData:resumeData];
     }
     // 下载失败，将resumeData保存以便恢复下载
-    NSURL *resumeFilePath = [NSURL fileURLWithPath:resumePath];
-    [resumeFilePath setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
-    NSError *writeError;
-    if ([resumeData writeToURL:resumeFilePath options:NSDataWritingAtomic error:&writeError]) {
-        NSLog(@"写入resumeData:%@",resumePath);
-    }
-    else {
-        NSLog(@"%@",writeError.description);
-    }
+    [YYDownloadHelper writeToPath:resumePath data:resumeData];
 }
 
 - (void)appendTaskToWaitQueueAndRemoveFormRuningQueue:(NSObject<YYDownloadTaskDelegate> *)task {
@@ -241,7 +231,7 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
     NSObject<YYDownloadTaskDelegate> *task = [[YYDownloadTaskManager shareManager] taskWithDownloadURL:downloadTask.currentRequest.URL.absoluteString];
     if (!task) return;
     NSError *error;
-    if ([[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:task.filePath] error:&error]) {
+    if ([YYDownloadHelper moveItemAtURL:location toURL:[NSURL fileURLWithPath:task.filePath]]) {
         [YYDownloadHelper removeItemAtPath:task.resumeDataPath];
         NSLog(@"下载完成:downloadURL:%@\n path:%@",task.downloadURL,task.filePath);
     }
@@ -260,6 +250,9 @@ static NSString *const kDownloadBackgroundSessionIdentifier = @"com.jonathan.dow
         /// -999是用户取消
         if (error.code != -999){
             task.downloadStatus = YYDownloadStatusFailed;
+        }
+        else {
+            task.downloadStatus = YYDownloadStatusPaused;
         }
     } else {
         task.downloadStatus = YYDownloadStatusFinished;

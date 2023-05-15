@@ -22,9 +22,9 @@
 
     
     YYDownloadTask *model1 = [[YYDownloadTask alloc] init];
-//    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
+    model1.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
-    model1.downloadURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+//    model1.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4";
 //    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
 
     YYDownloadTask *model2 = [[YYDownloadTask alloc] init];
@@ -35,17 +35,17 @@
     model3.queuePriority = NSOperationQueuePriorityHigh;
     model3.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
 
-//    if (![YYDownloadManager shareManager].tasks.count) {
-//        [[YYDownloadManager shareManager] startWithTask:model1];
+    if (![YYDownloadManager shareManager].tasks.count) {
+        [[YYDownloadManager shareManager] startWithTask:model1];
 //        [[YYDownloadManager shareManager] startWithTask:model2];
 //        [[YYDownloadManager shareManager] startWithTask:model3];
-//    }
-//
-//    else {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    }
+
+    else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [[YYDownloadManager shareManager] resumeAllDownloadingTask];
-//        });
-//    }
+        });
+    }
     
     
     UIButton *resume = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -90,9 +90,9 @@
 - (void)resume:(UIButton *)sender {
     if (![YYDownloadManager shareManager].tasks.count) {
         YYDownloadTask *model1 = [[YYDownloadTask alloc] init];
-    //    model1.fileURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
+        model1.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 
-        model1.downloadURL = @"https://media.w3.org/2010/05/sintel/trailer.mp4";
+//        model1.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4";
     //    model1.fileURL = @"https://speed.hetzner.de/100MB.bin";
 
         YYDownloadTask *model2 = [[YYDownloadTask alloc] init];
@@ -104,9 +104,9 @@
         model3.downloadURL = @"https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_2mb.mp4";
         [[YYDownloadManager shareManager] startWithTask:model1];
     }
-//    else {
-//        [[YYDownloadManager shareManager] resumeAllDownloadingTask];
-//    }
+    else {
+        [[YYDownloadManager shareManager] resumeAllDownloadingTask];
+    }
     [self.tableView reloadData];
 }
 
